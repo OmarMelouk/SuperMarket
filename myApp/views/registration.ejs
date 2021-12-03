@@ -39,7 +39,14 @@
             <input type="text" id="user" name="username"> <br>
             Password: <br>
             <input type="password" id="password" name="password"> <br> <br>
+            
+            <% if(error){ %>
+                <p><%= error%></p>
+             <% } %>
+            
             <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
+
+          
         </form>
     </div>
 </body>
