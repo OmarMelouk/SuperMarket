@@ -36,7 +36,14 @@
                     aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-        </div>
+        
     </nav>
+    <div>     <% for (var i =0; i < cart.length;  i++ ) { %>
+        <a href = "<%= '/' + cart[i].link %>" >
+         <h1><%= cart[i].name%></h1>
+         </a>
+         <br>
+         <% } %></div>
+</div>
 </body>
 </html>
