@@ -169,7 +169,13 @@ app.post('/register', function(req, res){
 
 ////////////////////////////////////// --- HOME START --- ///////////////////////////////////////////////////
 app.get('/home', function(req, res){
-res.render('home', {error:null})
+  if(sess.user){
+    console.log(sess.user);
+res.render('home', {error:null, user: sess.user})}
+else{
+  console.log("not permitted")
+  res.send('You must sign in or create an account before accessing this part of the website')
+} 
 });
 app.get('/phones', function(req, res){
   
@@ -197,7 +203,12 @@ app.get('/cart', function(req, res){
   
   // }
   // viewCart();
-  res.render('cart', {cart: sess.user.cart})
+  if(sess.user){
+  res.render('cart', {cart: sess.user.cart})}
+  else{
+    console.log("not permitted")
+    res.send('You must sign in or create an account before accessing this part of the website')
+  } 
   })
 
 
@@ -229,7 +240,7 @@ app.post('/search', function(req, res){
     }
     else{
       errorMessage = "No items found"
-      res.render('home', {error: errorMessage})
+      res.render('home', {error: errorMessage, user:sess.user})
     }
   
     client.close();
@@ -239,6 +250,11 @@ app.post('/search', function(req, res){
   searchItems();
   
 
+})
+app.get('/search', function(req, res){
+  if(sess.user){
+
+  }
 })
 
 /////////////////////////////////////////////CART////////////////////////////////////
@@ -338,8 +354,14 @@ app.get('/tennis', function(req, res){
 })
 ////////////////////////////////////// --- SPORTS END --- ///////////////////////////////////////////////////
 
-app.listen(3000);
-
+if(proccess.env.PORT){
+  app.listen(process.env.PORT, function(){console.log("Server started")})
+}
+else{
+  
+    app.listen(3000, function(){console.log("Server startedon port 3000")})
+  
+}
 
 
 // // MONGO CONNECTION
